@@ -12,5 +12,6 @@
 			"dest": "dist/main.ts",
 			"methods": ["GET", "POST", "PUT", "PATCH", "DELETE"]
 		}
-	]
+	],
+	"rewrites": [{ "source": "/api/(.*)", "destination": "/api" }]
 }
