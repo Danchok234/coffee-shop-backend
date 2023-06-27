@@ -23,17 +23,7 @@ const fakerProduct = (product: IProductPart): Prisma.ProductCreateInput => {
     images: product.images,
     description: faker.commerce.productDescription(),
     slug: toSlug(product.name),
-    price: faker.number.int({ min: 4, max: 10 }),
-    reviews: {
-      createMany: {
-        data: Array.from({ length: faker.number.int({ min: 1, max: 5 }) }).map(
-          () => ({
-            rating: faker.number.int({ min: 1, max: 5 }),
-            reviewText: faker.lorem.paragraph(),
-          }),
-        ),
-      },
-    },
+    price: faker.number.int({ min: 4, max: 10 })
   };
 };
 

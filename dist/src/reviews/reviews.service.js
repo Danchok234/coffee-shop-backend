@@ -19,8 +19,34 @@ let ReviewsService = class ReviewsService {
     findReviewsById(id) {
         return this.PrismaService.product.findUnique({
             where: {
-                id: id
+                id: id,
+            },
+            select: {
+                reviews: {
+                    select: {
+                        rating: true,
+                        reviewText: true,
+                        productId: true,
+                        user: {
+                            select: {
+                                id: true,
+                                username: true,
+                                email: true
+                            }
+                        },
+                    }
+                }
             }
+        });
+    }
+    async createReview(userId, productId, rating, reviewText) {
+        return this.PrismaService.review.create({
+            data: {
+                userId,
+                reviewText,
+                productId,
+                rating
+            },
         });
     }
 };

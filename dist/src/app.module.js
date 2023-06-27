@@ -12,6 +12,9 @@ const serve_static_1 = require("@nestjs/serve-static");
 const app_root_path_1 = require("app-root-path");
 const products_module_1 = require("./products/products.module");
 const reviews_module_1 = require("./reviews/reviews.module");
+const users_module_1 = require("./users/users.module");
+const auth_module_1 = require("./auth/auth.module");
+const config_1 = require("@nestjs/config");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
@@ -23,6 +26,9 @@ AppModule = __decorate([
                 rootPath: `${app_root_path_1.path}/uploads`,
                 serveRoot: "/uploads"
             }),
+            auth_module_1.AuthModule,
+            users_module_1.UsersModule,
+            config_1.ConfigModule.forRoot()
         ],
     })
 ], AppModule);

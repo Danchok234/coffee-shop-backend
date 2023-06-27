@@ -14,24 +14,39 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ReviewsController = void 0;
 const common_1 = require("@nestjs/common");
+const passport_1 = require("@nestjs/passport");
 const reviews_service_1 = require("./reviews.service");
+const create_review_dto_1 = require("./dto/create-review.dto");
 let ReviewsController = class ReviewsController {
     constructor(reviewsService) {
         this.reviewsService = reviewsService;
     }
     findReviewsById(id) {
-        this.reviewsService.findReviewsById(+id);
+        return this.reviewsService.findReviewsById(+id);
+    }
+    createReview(req, createReviewDto) {
+        const userId = req.user['sub'];
+        return this.reviewsService.createReview(userId, createReviewDto.productId, createReviewDto.rating, createReviewDto.reviewText);
     }
 };
 __decorate([
-    (0, common_1.Get)("/reviews/:id"),
-    __param(0, (0, common_1.Param)("id")),
+    (0, common_1.Get)(':id'),
+    __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", void 0)
 ], ReviewsController.prototype, "findReviewsById", null);
+__decorate([
+    (0, common_1.UseGuards)((0, passport_1.AuthGuard)('jwt')),
+    (0, common_1.Post)('create'),
+    __param(0, (0, common_1.Req)()),
+    __param(1, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, create_review_dto_1.CreateReviewDto]),
+    __metadata("design:returntype", void 0)
+], ReviewsController.prototype, "createReview", null);
 ReviewsController = __decorate([
-    (0, common_1.Controller)('reviews'),
+    (0, common_1.Controller)('review'),
     __metadata("design:paramtypes", [reviews_service_1.ReviewsService])
 ], ReviewsController);
 exports.ReviewsController = ReviewsController;

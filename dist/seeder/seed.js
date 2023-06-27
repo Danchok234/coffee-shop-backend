@@ -22,15 +22,7 @@ const fakerProduct = (product) => {
         images: product.images,
         description: faker_1.faker.commerce.productDescription(),
         slug: toSlug(product.name),
-        price: faker_1.faker.number.int({ min: 4, max: 10 }),
-        reviews: {
-            createMany: {
-                data: Array.from({ length: faker_1.faker.number.int({ min: 1, max: 5 }) }).map(() => ({
-                    rating: faker_1.faker.number.int({ min: 1, max: 5 }),
-                    reviewText: faker_1.faker.lorem.paragraph(),
-                })),
-            },
-        },
+        price: faker_1.faker.number.int({ min: 4, max: 10 })
     };
 };
 async function main() {
