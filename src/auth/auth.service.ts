@@ -49,7 +49,7 @@ export class AuthService {
 		const user = await this.usersService.findByEmail(AuthDto.email)
 		if (!user) throw new BadRequestException('User isn`t exist, please register')
 		const passwordMatches = await argon2.verify(user.password, AuthDto.password)
-		if (!passwordMatches) throw new BadRequestException('Password in incorrect')
+		if (!passwordMatches) throw new BadRequestException('Password is incorrect')
 		const tokens = await this.getTokens(user.id, user.username)
 		await this.updateRefreshToken(user.id, tokens.refreshToken)
 		const returnObject = {
